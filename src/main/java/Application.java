@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Application {
     public static void main(String[] args) {
         try {
-            // Configura o tamanho do terminal para 40 colunas e 20 linhas
+            // Configure o tamanho do terminal para 40 colunas e 20 linhas
             TerminalSize terminalSize = new TerminalSize(40, 20);
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
                     .setInitialTerminalSize(terminalSize);
