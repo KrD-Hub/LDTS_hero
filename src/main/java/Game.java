@@ -5,6 +5,7 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+
 import java.io.IOException;
 
 public class Game {
@@ -18,35 +19,39 @@ public class Game {
 
         Terminal terminal = terminalFactory.createTerminal();
         screen = new TerminalScreen(terminal);
-        screen.setCursorPosition(null);
+        screen.setCursorPosition(null); // Esconde o cursor do terminal
         screen.startScreen();
         screen.doResizeIfNecessary();
 
-        hero = new Hero(10, 10);
+        hero = new Hero(new Position(10,10)); // Inicializa o herói numa posição inicial
     }
 
     private void draw() throws IOException {
         screen.clear();
-        hero.draw(screen);
+        hero.draw(screen); // Desenha o herói no ecrã
         screen.refresh();
     }
 
     private void processKey(KeyStroke key) {
         switch (key.getKeyType()) {
             case ArrowUp:
-                hero.moveUp();
+                moveHero(hero.moveUp());
                 break;
             case ArrowDown:
-                hero.moveDown();
+                moveHero(hero.moveDown());
                 break;
             case ArrowLeft:
-                hero.moveLeft();
+                moveHero(hero.moveLeft());
                 break;
             case ArrowRight:
-                hero.moveRight();
+                moveHero(hero.moveRight());
                 break;
-            // Outros casos, como 'q' para sair, podem ser adicionados aqui
+            // Outros casos podem ser adicionados aqui, como 'q' para sair
         }
+    }
+
+    private void moveHero(Position position) {
+        hero.setPosition(position); // Atualiza a posição do herói
     }
 
     public void run() throws IOException {
@@ -54,22 +59,9 @@ public class Game {
             draw();
             KeyStroke key = screen.readInput();
             processKey(key);
-            if (key.getKeyType() == KeyType.Character && key.getCharacter() == 'q') {
-                screen.close();
-                break;
-            }
             if (key.getKeyType() == KeyType.EOF) {
-                break;
+                break; // Sai do loop se a tecla EOF for pressionada
             }
-        }
-    }
-
-    public static void main(String[] args) {
-        try {
-            Game game = new Game();
-            game.run();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
