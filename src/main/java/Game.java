@@ -5,12 +5,13 @@ import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.io.IOException;
 
 public class Game {
     private final Screen screen;
-    private Arena arena; // Campo para a Arena
+    private Arena arena;
 
     public Game() throws IOException {
         TerminalSize terminalSize = new TerminalSize(40, 20);
@@ -28,7 +29,8 @@ public class Game {
 
     private void draw() throws IOException {
         screen.clear();
-        arena.draw(screen); // Chama o método draw da Arena
+        TextGraphics graphics = screen.newTextGraphics();
+        arena.draw(graphics); // Chama o método draw da Arena
         screen.refresh();
     }
 

@@ -1,4 +1,7 @@
-import com.googlecode.lanterna.screen.Screen;
+import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
@@ -27,12 +30,14 @@ public class Arena {
             case ArrowRight:
                 moveHero(hero.moveRight());
                 break;
-            // Outros casos podem ser adicionados aqui, como 'q' para sair
+            // Outros casos podem ser adicionados aqui
         }
     }
 
-    public void draw(Screen screen) {
-        hero.draw(screen); // Desenha o herói
+    public void draw(TextGraphics graphics) {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        hero.draw(graphics); // Desenha o herói
     }
 
     public boolean canHeroMove(Position position) {
