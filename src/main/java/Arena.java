@@ -3,7 +3,6 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Arena {
     public Arena(int width, int height) {
         this.width = width;
         this.height = height;
-        this.hero = new Hero(10, 10); // Posição inicial do herói
+        this.hero = new Hero(10, 10);
         this.walls = createWalls();
     }
 
@@ -47,7 +46,6 @@ public class Arena {
             case ArrowRight:
                 moveHero(hero.moveRight());
                 break;
-            // Outros casos podem ser adicionados aqui
         }
     }
 
@@ -70,7 +68,7 @@ public class Arena {
 
     private boolean isPositionInsideWalls(Position position) {
         for (Wall wall : walls) {
-            if (wall.getPosition().getX() == position.getX() && wall.getPosition().getY() == position.getY()) {
+            if (wall.getPosition().equals(position)) {
                 return true;
             }
         }
